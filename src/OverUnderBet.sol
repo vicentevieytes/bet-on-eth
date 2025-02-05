@@ -63,13 +63,13 @@ contract OverUnderBet {
             block.timestamp >= openingBookTimestamp && block.timestamp <= closingBookTimestamp, "Betting window closed"
         );
         require(msg.value > 0, "Bet amount must be > 0");
-        require(betUnderAmounts[msg.sender] == 0, "Cannot bet on both over and under");
+        require(betOverAmounts[msg.sender] == 0, "Cannot bet on both over and under");
 
-        if (betUnderAmounts[msg.sender] == 0) {
-            bettingUnder.push(msg.sender);
+        if (betOverAmounts[msg.sender] == 0) {
+            bettingOver.push(msg.sender);
         }
-        betUnderAmounts[msg.sender] += msg.value;
-        totalUnder += msg.value;
+        betOverAmounts[msg.sender] += msg.value;
+        totalOver += msg.value;
     }
 
     // After the bet date, anyone can call this function to resolve the bet and distribute payouts. Winners receive their original bet plus a proportional share of the losing side’s bets.
